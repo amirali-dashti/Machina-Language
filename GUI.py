@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from GNFA import GNFADefine
 
 # Initialize CustomTkinter theme
 ctk.set_appearance_mode("System")
@@ -68,10 +69,9 @@ class GridApp(ctk.CTk):
             grid_data.append(row_data)
         
         # Print grid data to console (or handle it as needed)
-        print("Grid Data:")
-        for row in grid_data:
-            print(row)
-        ctk.CTkMessageBox.show_info("Grid Data Collected", "Grid data has been collected and printed in the console.")
+        currentSessionGNFA = GNFADefine(grid_data)
+        
+        currentSessionGNFA.gReturn()
 
 if __name__ == "__main__":
     app = GridApp()
