@@ -1,2 +1,2 @@
 # Machina Language
-A programming language specifically for Automatas and Machines. (Computation Theory)
+Machina is a specialized programming language designed for the creation and manipulation of Automata and Machines, inspired by concepts in Computation Theory.
