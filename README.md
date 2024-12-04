@@ -1,2 +1,2 @@
-# DFARE
-Converts an DFA to a Regular Expression. (Computation Theory)
+# Machina Language
+A programming language specifically for Automatas and Machines. (Computation Theory)
