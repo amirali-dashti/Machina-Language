@@ -1,0 +1,9 @@
+state q0 start
+state q1 final
+state q3
+state q4 final
+transition q0 q1 a
+transition q1 q2 b
+transition q2 q0 abb
+transition q2 q3 abab
+transition q3 q4 e
