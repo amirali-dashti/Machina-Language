@@ -5,7 +5,6 @@ import numpy as np
 
 class DFA:
     def __init__(self):
-        # Initialize state and transition management with Pandas DataFrames
         self.states = pd.DataFrame(columns=["Name", "Is_Start", "Is_Final"])
         self.transitions = pd.DataFrame(columns=["Start_State", "End_State", "Label"])
         self.start_state = None
@@ -26,13 +25,48 @@ class DFA:
     def add_transition(self, start_state, end_state, label):
         if start_state not in self.states["Name"].values or end_state not in self.states["Name"].values:
             return "Both start and end states must exist before adding a transition."
-        else:
-            self.transitions = pd.concat([self.transitions, pd.DataFrame({
-                "Start_State": [start_state],
-                "End_State": [end_state],
-                "Label": [label]
-            })], ignore_index=True)
-            return f"Transition from '{start_state}' to '{end_state}' with label '{label}' added."
+        self.transitions = pd.concat([self.transitions, pd.DataFrame({
+            "Start_State": [start_state],
+            "End_State": [end_state],
+            "Label": [label]
+        })], ignore_index=True)
+        return f"Transition from '{start_state}' to '{end_state}' with label '{label}' added."
+
+    def change_transition(self, start_state, end_state, label, new_start_state=None, new_end_state=None, new_label=None):
+        mask = (
+            (self.transitions["Start_State"] == start_state) & 
+            (self.transitions["End_State"] == end_state) & 
+            (self.transitions["Label"] == label)
+        )
+        if not mask.any():
+            return f"No transition from '{start_state}' to '{end_state}' with label '{label}' found."
+
+        if new_start_state:
+            if new_start_state not in self.states["Name"].values:
+                return f"New start state '{new_start_state}' does not exist."
+            self.transitions.loc[mask, "Start_State"] = new_start_state
+
+        if new_end_state:
+            if new_end_state not in self.states["Name"].values:
+                return f"New end state '{new_end_state}' does not exist."
+            self.transitions.loc[mask, "End_State"] = new_end_state
+
+        if new_label:
+            self.transitions.loc[mask, "Label"] = new_label
+
+        return "Transition updated successfully."
+
+    def remove_transition(self, start_state, end_state, label):
+        mask = (
+            (self.transitions["Start_State"] == start_state) & 
+            (self.transitions["End_State"] == end_state) & 
+            (self.transitions["Label"] == label)
+        )
+        if not mask.any():
+            return f"No transition from '{start_state}' to '{end_state}' with label '{label}' found."
+        
+        self.transitions = self.transitions[~mask].reset_index(drop=True)
+        return f"Transition from '{start_state}' to '{end_state}' with label '{label}' removed."
 
     def display_dfa(self):
         output = f"\nDFA States:\n{self.states}\nDFA Transitions:\n{self.transitions}\nGNFA Table:\n{self.dfatable()}"
@@ -40,40 +74,21 @@ class DFA:
         
     def dfatable(self):
         n = len(self.states)
-        
-        # Re-index the states, so the state numbering starts from 1
         state_to_index = {state: index + 1 for index, state in enumerate(self.states["Name"].values)}
-        
-        # Add a new start state (state 0) and a new final state (state n+1)
-        self.table = pd.DataFrame(np.full((n + 2, n + 2), "n"))  # Create table of size (n+2) x (n+2)
+        self.table = pd.DataFrame(np.full((n + 2, n + 2), "n"))
 
-        # Add epsilon transitions (e) to the new start state and final state
         for i in range(n):
-            # epsilon transition from the new start state (0) to the original start state
             if self.states.iloc[i]["Is_Start"]:
                 self.table.iloc[0, state_to_index[self.states.iloc[i]["Name"]]] = "e"
-            # epsilon transition from each final state to the new final state (n+1)
             if self.states.iloc[i]["Is_Final"]:
                 self.table.iloc[state_to_index[self.states.iloc[i]["Name"]], n+1] = "e"
         
-        # Now, fill in the transitions based on the original DFA
         for _, row in self.transitions.iterrows():
-            start_state = row["Start_State"]
-            end_state = row["End_State"]
-            label = row["Label"]
-            
-            # Make sure that the state-to-index mapping is correct
-            if start_state in state_to_index and end_state in state_to_index:
-                i = state_to_index[start_state]  # Get the index for the start state
-                j = state_to_index[end_state]    # Get the index for the end state
-                
-                # Set the table cell to the label of the transition
-                self.table.iloc[i, j] = label
+            i, j = state_to_index[row["Start_State"]], state_to_index[row["End_State"]]
+            self.table.iloc[i, j] = row["Label"]
         
-        print(self.table)  # To check the updated table
+        print(self.table)
         return self.table
-
-
 
     def export_dfa(self, file_path="dfa_export.xlsx"):
         with pd.ExcelWriter(file_path) as writer:
@@ -82,10 +97,8 @@ class DFA:
         return f"DFA exported to '{file_path}'."
 
     def validate_dfa(self):
-        # Check if a start state exists
         if not self.start_state:
             return "DFA validation failed: No start state defined."
-        # Check if at least one final state exists
         if not self.states[self.states["Is_Final"]].empty:
             return "DFA validation successful."
         else:
