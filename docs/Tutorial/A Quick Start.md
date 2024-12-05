@@ -5,7 +5,7 @@ This page guides you to the very beginning of the Machina Language programming.
 To define your DFA, you must follow the order bellow. Mathematically, The set of states exist before defining relations. Therefore is Machina.
 
 > [!WARNING]
-> Using different order may lead to errors.
+> Using different orders may lead to errors.
 
 ### 1. States
 
@@ -24,7 +24,7 @@ The output should look like this:
 1   q2    False     True
 ```
 > [!TIP]
-> You can change the Start/Final booleans of states with ```Q.changestate.<name> <is start boolean> <is final boolean>```. see [Here] for more.
+> You can change the Start/Final booleans of states with ```Q.changestate.<name> <being start boolean> <being final boolean>```. see [here](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/Q.md) for more.
 
 ### 2. Transitions
 
@@ -44,10 +44,10 @@ There are two approaches in adding a transition between two states:
     Q.label.add.q<i> q<j> <transition>
     ```
 > [!TIP]
-> Edit two states' transitions with ```Q.label.change.q<i> q<j> <transition>```. see [Here] for more.
+> Edit two states' transitions with ```Q.label.change.q<i> q<j> <transition>```. see [here](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/Q.md) for more.
 
 > [!TIP]
-> Remove two states' transitions with ```Q.label.remove.q<i> q<j> <transition>```. see [Here] for more.
+> Remove two states' transitions with ```Q.label.remove.q<i> q<j> <transition>```. see [here](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/Q.md) for more.
 
 To have access and see to transitions, use:
 ```
