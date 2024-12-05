@@ -88,6 +88,7 @@ class DFA:
             i, j = state_to_index[row["Start_State"]], state_to_index[row["End_State"]]
             self.table.iloc[i, j] = row["Label"]
         
+        print("The translation result from DFA to GNFA:")
         print(self.table)
         return self.table
 

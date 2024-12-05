@@ -41,7 +41,7 @@ def changeState(entry):
         dfa.states.at[state_index, "Is_Final"] = final
         if start:
             dfa.start_state = stateName  # Ensure the start state is correctly tracked
-        print(f"State '{stateName}' updated.")
+        # print(f"State '{stateName}' updated.")
     else:
         # Add new state if it doesn't exist
         dfa.add_state(stateName, start, final)
@@ -66,7 +66,7 @@ def labelConfigs(entry):
     elif ".change." in entry:
         labelChange(moveRight(entry, ".change."))
     elif ".add." in entry:
-        eei(moveRight(entry, ".add.").replace("/", " "))
+        eei(moveRight(entry, ".add."))
 
 def que(entry):
     if ".len" in entry:
@@ -91,7 +91,7 @@ def eei(entry):
     dfa.add_transition(eei_list[0], eei_list[1], eei_list[2])
     
 
-def convert(entry):
+def translate(entry):
     if ".dfa.gnfa" in entry:
         dfa.dfatable()
     if ".dfa.re" in entry:
@@ -99,8 +99,8 @@ def convert(entry):
         
         
 def generalDos(entry):
-    if ".convert" in entry:
-        convert(moveRight(entry, "do"))
+    if ".translate" in entry:
+        translate(moveRight(entry, "do"))
         
 def navigator(entry):
     if commandCall(entry, "Q"):
@@ -130,12 +130,13 @@ def compiler(code):
         
         
 example = """
-Q.len = 2
+Q.len = 3
 E.{
 q1 q1 a
 q1 q2 b
 q2 q2 aUb
+q2 q3 e
 }
-do.convert.dfa.re
+do.translate.dfa.re
 """
 compiler(example)
