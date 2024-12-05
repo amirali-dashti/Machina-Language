@@ -6,4 +6,4 @@ Here's the access table:
 
 | Content  | Link |
 | ------------- | ------------- |
-| Tutorial  | Link  |
+| Tutorial  | [Link](https://github.com/devtracer/Machina-Language/blob/main/docs/0/Tutorial.md)  |
