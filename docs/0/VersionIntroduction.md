@@ -7,3 +7,4 @@ Here's the access table:
 | Content  | Link |
 | ------------- | ------------- |
 | Start Page | [Link](https://github.com/devtracer/Machina-Language/blob/main/docs/0/Tutorial.md)  |
+| Tutorial | [Link](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/Tutorial.md) |

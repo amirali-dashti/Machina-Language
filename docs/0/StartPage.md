@@ -13,4 +13,4 @@ You can access to the study page with [this link]
 
 ## 2. Programming Guide:
 
-This page provides a guidance to learn and study Machina Language:
+Have access to the Tutorial page with [pressing here](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/Tutorial.md)
