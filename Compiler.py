@@ -132,11 +132,14 @@ def compiler(code):
 example = """
 Q.len = 3
 E.{
-q1 q1 a
-q1 q2 b
-q2 q2 aUb
-q2 q3 e
+q1 q2 a
+q2 q2 b
+q2 q3 a
+q3 q3 aUb
+q1 q3 b
 }
+Q.print.states
+Q.print.tra
 do.translate.dfa.re
 """
 compiler(example)

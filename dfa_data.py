@@ -78,15 +78,20 @@ class DFA:
         state_to_index = {state: index + 1 for index, state in enumerate(self.states["Name"].values)}
         self.table = pd.DataFrame(np.full((n + 2, n + 2), "n"))
 
+        # Mark initial and final states
         for i in range(n):
             if self.states.iloc[i]["Is_Start"]:
                 self.table.iloc[0, state_to_index[self.states.iloc[i]["Name"]]] = "e"
             if self.states.iloc[i]["Is_Final"]:
-                self.table.iloc[state_to_index[self.states.iloc[i]["Name"]], n+1] = "e"
+                self.table.iloc[state_to_index[self.states.iloc[i]["Name"]], n + 1] = "e"
         
+        # Insert transitions
         for _, row in self.transitions.iterrows():
             i, j = state_to_index[row["Start_State"]], state_to_index[row["End_State"]]
-            self.table.iloc[i, j] = row["Label"]
+            if self.table.iloc[i, j] == "n":
+                self.table.iloc[i, j] = row["Label"]
+            else:
+                self.table.iloc[i, j] += f"U{row['Label']}"  # Union if already exists
         
         print("The translation result from DFA to GNFA:")
         print(self.table)
@@ -95,9 +100,9 @@ class DFA:
     def gtor(self):
         self.dfatable()  # Initialize the table
         
-        template = self.table
+        table = self.table.copy()
         
-        gtor(template)
+        gtor(table)
     
     
     def export_dfa(self, file_path="dfa_export.xlsx"):
