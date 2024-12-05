@@ -17,6 +17,7 @@ do commands contain methods and functions to translate our DFAs or to work on th
 
 | Link |
 | ------------- |
+| [A Quick Start](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/A%20Quick%20Start.md) |
 | [Q commands](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/Q.md) |
 | [E commands](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/E.md) |
 | [do commands](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/do.md) |
