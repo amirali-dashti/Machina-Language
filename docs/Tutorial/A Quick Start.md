@@ -64,4 +64,4 @@ The output should look like this:
 
 ### 3. Use ```do``` functions to work with the DFA
 
-We're done with defining our DFA. now you can use the ```do``` methods to work on your DFA. see [Here] for more.
+We're done with defining our DFA. now you can use the ```do``` methods to work on your DFA. see [Here](https://github.com/devtracer/Machina-Language/blob/main/docs/Tutorial/do.md) for more.
