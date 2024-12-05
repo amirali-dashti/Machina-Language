@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+from GNFAtoRE import gtor
 
 class DFA:
     def __init__(self):
@@ -90,6 +91,14 @@ class DFA:
         print(self.table)
         return self.table
 
+    def gtor(self):
+        self.dfatable()  # Initialize the table
+        
+        template = self.table
+        
+        gtor(template)
+    
+    
     def export_dfa(self, file_path="dfa_export.xlsx"):
         with pd.ExcelWriter(file_path) as writer:
             self.states.to_excel(writer, sheet_name="States", index=False)

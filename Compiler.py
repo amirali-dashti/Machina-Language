@@ -94,6 +94,9 @@ def eei(entry):
 def convert(entry):
     if ".dfa.gnfa" in entry:
         dfa.dfatable()
+    if ".dfa.re" in entry:
+        dfa.gtor()
+        
         
 def generalDos(entry):
     if ".convert" in entry:
@@ -127,22 +130,12 @@ def compiler(code):
         
         
 example = """
-Q.len = 5
-Q.print.states
+Q.len = 2
 E.{
-q1 q2 abb
-q2 q3 ba
-q3 q4 a*Ub*
-q4 q5 e
+q1 q1 a
+q1 q2 b
+q2 q2 aUb
 }
-Q.print.states
-Q.print.transitions
-Q.label.change.q1 q2 abb ba
-Q.print.transitions
-Q.label.remove.q4 q5 e
-Q.print.transitions
-Q.label.add.q4 q5 b*Ua*b*
-Q.print.transitions
-do.convert.dfa.gnfa
+do.convert.dfa.re
 """
 compiler(example)
