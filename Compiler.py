@@ -133,11 +133,15 @@ example = """
 Q.len = 3
 E.{
 q1 q2 a
+q2 q1 a
 q2 q2 b
-q2 q3 a
-q3 q3 aUb
 q1 q3 b
+q3 q1 b
+q3 q2 a
 }
+Q.changestate.q2 False True
+Q.changestate.q1 True False
+Q.changestate.q3 False True
 Q.print.states
 Q.print.tra
 do.translate.dfa.re
