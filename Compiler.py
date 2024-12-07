@@ -146,4 +146,3 @@ Q.print.states
 Q.print.tra
 do.translate.dfa.re
 """
-compiler(example)

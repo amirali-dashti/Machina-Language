@@ -14,8 +14,8 @@ def dataCleaning(entry):
     for regex in regexes:
         cleared_text = re.sub(regex, '', cleared_text)  # Apply regex replacement
     
-    # Replace "UU" with "U"
     cleared_text = cleared_text.replace("UU", "U")
+    cleared_text = cleared_text.replace("**", "*")
     
     # Remove the first character if it's 'e' or 'U'
     if cleared_text[0] == "e" or cleared_text[0] == "U":
