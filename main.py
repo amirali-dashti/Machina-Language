@@ -2,7 +2,7 @@ import customtkinter as ctk
 import sys
 import io
 from Compiler import compiler
-from tkinter import messagebox, filedialog
+from tkinter import messagebox, filedialog, Menu
 
 
 class DFAGUIApp(ctk.CTk):
@@ -28,11 +28,23 @@ class DFAGUIApp(ctk.CTk):
         self.grid_rowconfigure(2, weight=1)
 
         # Menu Bar
-        self.menu_bar = ctk.CTkMenu(self)
+        self.menu_bar = Menu(self)
         self.config(menu=self.menu_bar)
-        file_menu = ctk.CTkMenu(self.menu_bar, tearoff=0)
+
+        # File menu
+        file_menu = Menu(self.menu_bar, tearoff=0)
         file_menu.add_command(label="Open File", command=self.open_file)
+        file_menu.add_command(label="Save File", command=self.save_file)
         self.menu_bar.add_cascade(label="File", menu=file_menu)
+
+        # Output menu
+        output_menu = Menu(self.menu_bar, tearoff=0)
+        output_menu.add_command(label="Save Output", command=self.save_output)
+        output_menu.add_command(label="Clear Output", command=self.clear_output)
+        self.menu_bar.add_cascade(label="Output", menu=output_menu)
+
+        # Run Button
+        self.menu_bar.add_command(label="▶ Run Code", command=self.run_code)
 
         # Code Entry Section
         self.code_frame = ctk.CTkFrame(self)
@@ -40,10 +52,6 @@ class DFAGUIApp(ctk.CTk):
         self.code_frame.grid_propagate(False)
         self.code_text = ctk.CTkTextbox(self.code_frame, font=("Courier", 12))
         self.code_text.pack(fill="both", expand=True)
-
-        # Run Button
-        self.run_button = ctk.CTkButton(self, text="▶ Run Code", command=self.run_code)
-        self.run_button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
         # Output Section
         self.output_frame = ctk.CTkFrame(self)
@@ -64,6 +72,36 @@ class DFAGUIApp(ctk.CTk):
                     self.code_text.insert(ctk.END, content)
             except Exception as e:
                 messagebox.showerror("Error", f"Could not open file: {e}")
+
+    def save_file(self):
+        """Save the content of the code editor to a .txt file."""
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text Files", "*.txt")])
+        if file_path:
+            try:
+                with open(file_path, "w") as file:
+                    file.write(self.code_text.get("1.0", ctk.END).strip())
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not save file: {e}")
+
+    def save_output(self):
+        """Save the output content to a file."""
+        output = self.output_text.get("1.0", ctk.END).strip()
+        if not output:
+            messagebox.showerror("Error", "No output to save.")
+            return
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text Files", "*.txt")])
+        if file_path:
+            try:
+                with open(file_path, "w") as file:
+                    file.write(output)
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not save output: {e}")
+
+    def clear_output(self):
+        """Clear the output text area."""
+        self.output_text.configure(state=ctk.NORMAL)  # Make output writable
+        self.output_text.delete("1.0", ctk.END)  # Clear output text
+        self.output_text.configure(state=ctk.DISABLED)  # Make output read-only again
 
     def run_code(self):
         """Execute the code entered in the editor."""
