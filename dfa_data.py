@@ -98,7 +98,7 @@ class DFA:
         return self.table
 
     def gtor(self):
-        self.dfatable()  # Initialize the table
+        self.dfatable()
         
         table = self.table.copy()
         

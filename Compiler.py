@@ -16,6 +16,8 @@ def readEqual(entry):
             return entry
 
 def qPrint(entry, dfa):
+    if ".all" in entry:
+        dfa.display_dfa()
     if ".states" in entry:
         print(dfa.states)
     if ".tra" in entry:
