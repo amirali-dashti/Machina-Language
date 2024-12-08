@@ -37,7 +37,8 @@ def gtor(table):
 
         for i in incoming:
             for j in outgoing:
-                if i != rip and j != rip:
+                if i != rip and j != rip and table.iloc[i, rip] != 'n' and table.iloc[rip, j] != 'n':
+                    # Only process if transitions exist
                     R1 = table.iloc[i, rip].replace("n", "")
                     R2 = table.iloc[rip, rip].replace("n", "")
                     R3 = table.iloc[rip, j].replace("n", "")
@@ -46,10 +47,10 @@ def gtor(table):
                     result = dataCleaning(f"{R1}({R2})*{R3}U{R4}" if R2 != "n" else f"{R1}{R3}U{R4}")
                     table.iloc[i, j] = result if table.iloc[i, j] == "n" else f"{table.iloc[i, j]}U{result}"
 
-            # Drop the row and column for the 'rip' state
+        # Drop the row and column for the 'rip' state
         table.drop(index=rip, columns=rip, inplace=True)
 
-        # Output final result
+    # Output final result
     for _, row in table.iterrows():
         for col in table.columns:
             value = row[col]
