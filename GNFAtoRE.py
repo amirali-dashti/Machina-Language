@@ -18,11 +18,11 @@ def dataCleaning(entry):
     cleared_text = cleared_text.replace("**", "*")
     
     # Remove the first character if it's 'e' or 'U'
-    if cleared_text[0] == "e" or cleared_text[0] == "U":
+    if cleared_text[0] == "e" or cleared_text[0] == "U" or cleared_text[0] == "e*":
         cleared_text = cleared_text[1:]
     
     # Remove the last character if it's 'e' or 'U'
-    if cleared_text[-1] == "e" or cleared_text[-1] == "U":
+    if cleared_text[-1] == "e" or cleared_text[-1] == "U" or cleared_text[-1] == "*e":
         cleared_text = cleared_text[:-1]
     
     
