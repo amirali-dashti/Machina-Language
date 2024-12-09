@@ -11,7 +11,7 @@ You can access to the study page with [this link]
 
 ## 1. Installing
 
-0. make sure these packages are installed:
+1. make sure these packages are installed:
 ```
 pip install tk customtkinter sys io
 ```
