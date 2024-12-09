@@ -5,7 +5,7 @@ Let's get into the tutorial!
 ## 0. Understanding Automatas and Machines:
 
 > [!IMPORTANT]
-> the understimate of Automatas and Machines is required as a background to program in this language.
+> the understimate of Automatas and Machines is required as a background for being able to work with this programming language.
 
 You can access to the study page with [this link]
 
